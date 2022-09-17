@@ -29,7 +29,7 @@ platform :ios do
 
   desc "自定义脚本"
   lane :custom_lane do |options|
-    # get_cache_path()
+
   end
 end
 
