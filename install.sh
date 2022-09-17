@@ -37,5 +37,6 @@ EOF
 
 echo "写入 Fastfile 成功"
 
-echo "开始执行 fastlane ..."
+echo "开始执行 fastlane 命令 ..."
 fastlane install project_name:"$PROJECT_NAME" git_ssh_url:"$GIT_SSH_URL" git_homepage_url:"$GIT_HOMEPAGE_URL"
+
