@@ -1,33 +1,34 @@
 #!/bin/sh  
 
-# fastlane
+echo "Please input project name: "  
+read PROJECT_NAME  
 
-if [[ ! -n "$(which fastlane)" ]]; then 
-  sudo gem install -n /usr/local/bin fastlane -NV && sudo fastlane install_plugins
+echo "Please input github homepage url: "  
+read GIT_HOMEPAGE_URL
+
+echo "Please input github ssh url: "  
+read GIT_SSH_URL
+
+fastlane_dir="`pwd`/fastlane"
+if [ ! -d "$fastlane_dir" ];then
+mkdir $fastlane_dir
+echo "创建文件夹成功"
 else
-  echo "fastlane is installed"
+echo "文件夹已经存在"
 fi
 
-# swiftlint
+cat > "${fastlane_dir}/Fastfile" <<EOF
+default_platform(:ios)
+import_from_git(url: 'git@github.com:zevwings/SAConfiguration.git', branch: 'master', cache_path: '~/.sa/fastlane/cache')
 
-if [[ ! -n "$(which swiftlint)" ]]; then 
-  brew install swiftlint
-else
-  echo "swiftlint is installed"
-fi
+platform :ios do
 
-# Carthage
+  desc "自定义脚本"
+  lane :custom_lane do |options|
+    # get_cache_path()
+  end
+end
 
-if [[ ! -n "$(which carthage)" ]]; then 
-  brew install carthage
-else
-  echo "carthage is installed"
-fi
+EOF
 
-# Cocoapods
-
-if [[ ! -n "$(which pod)" ]]; then 
-  brew install pod
-else
-  echo "cocoapods is installed"
-fi
+fastlane install project_name:"$PROJECT_NAME" git_ssh_url:"$GIT_SSH_URL" git_homepage_url:"$GIT_HOMEPAGE_URL"
