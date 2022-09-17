@@ -9,6 +9,8 @@ read GIT_HOMEPAGE_URL
 echo "Please input github ssh url: "  
 read GIT_SSH_URL
 
+mkdir "$PROJECT_NAME" && cd "$PROJECT_NAME"
+
 fastlane_dir="`pwd`/fastlane"
 if [ ! -d "$fastlane_dir" ];then
 mkdir $fastlane_dir
